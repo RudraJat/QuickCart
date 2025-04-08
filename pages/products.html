@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - E-Commerce Store</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/products.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">E-Commerce Store</div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="products-container">
+            <aside class="filters">
+                <h3>Filters</h3>
+                <div class="filter-group">
+                    <h4>Categories</h4>
+                    <div id="categoryFilters"></div>
+                </div>
+                <div class="filter-group">
+                    <h4>Price Range</h4>
+                    <input type="range" id="priceRange" min="0" max="1000" step="10">
+                    <span id="priceValue">$0 - $1000</span>
+                </div>
+            </aside>
+
+            <section class="products-grid" id="productsGrid">
+                <!-- Products will be loaded dynamically -->
+            </section>
+        </div>
+    </main>
+
+    <script src="../assets/js/products.js"></script>
+</body>
+</html>
