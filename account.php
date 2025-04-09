@@ -2,8 +2,18 @@
 session_start();
 require_once 'config/database.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header('Location: auth/login.php');
+// Initialize database connection
+$database = new Database();
+$pdo = $database->getConnection();
+
+// Get user information
+if (isset($_SESSION['user_id'])) {
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $user = $stmt->fetch();
+} else {
+    // Redirect to login if not logged in
+    header('Location: /classproject/login.php');
     exit();
 }
 
@@ -30,6 +40,12 @@ $orders = $stmt->fetchAll();
 
 $pageTitle = 'My Account - QuickCart';
 $containerClass = 'max-w-4xl mx-auto';
+
+// Add this line to include necessary scripts
+$additionalScripts = '
+    <script src="/classproject/assets/js/darkMode.js"></script>
+    <script src="/classproject/assets/js/cart.js"></script>
+';
 
 ob_start();
 ?>

@@ -2,32 +2,47 @@
 session_start();
 require_once 'config/database.php';
 
-// Fetch featured products
-$stmt = $pdo->query("SELECT p.*, c.name as category_name 
-                     FROM products p 
-                     LEFT JOIN categories c ON p.category_id = c.id 
-                     WHERE p.is_featured = 1 
-                     LIMIT 8");
-$featured_products = $stmt->fetchAll();
+// Initialize database connection
+$database = new Database();
+$pdo = $database->getConnection();
 
-// Fetch all categories
-$stmt = $pdo->query("SELECT * FROM categories");
-$categories = $stmt->fetchAll();
+// Initialize empty arrays in case queries fail
+$featured_products = [];
+$categories = [];
+$latest_products = [];
+$sale_products = [];
 
-// Fetch latest products
-$stmt = $pdo->query("SELECT p.*, c.name as category_name 
-                     FROM products p 
-                     LEFT JOIN categories c ON p.category_id = c.id 
-                     ORDER BY p.created_at DESC LIMIT 4");
-$latest_products = $stmt->fetchAll();
+try {
+    // Fetch featured products
+    $stmt = $pdo->query("SELECT p.*, c.name as category_name 
+                         FROM products p 
+                         LEFT JOIN categories c ON p.category_id = c.id 
+                         WHERE p.is_featured = 1 
+                         LIMIT 8");
+    $featured_products = $stmt->fetchAll();
 
-// Fetch sale products
-$stmt = $pdo->query("SELECT p.*, c.name as category_name 
-                     FROM products p 
-                     LEFT JOIN categories c ON p.category_id = c.id 
-                     WHERE p.sale_price IS NOT NULL 
-                     LIMIT 4");
-$sale_products = $stmt->fetchAll();
+    // Fetch all categories
+    $stmt = $pdo->query("SELECT * FROM categories");
+    $categories = $stmt->fetchAll();
+
+    // Fetch latest products
+    $stmt = $pdo->query("SELECT p.*, c.name as category_name 
+                         FROM products p 
+                         LEFT JOIN categories c ON p.category_id = c.id 
+                         ORDER BY p.created_at DESC LIMIT 4");
+    $latest_products = $stmt->fetchAll();
+
+    // Fetch sale products
+    $stmt = $pdo->query("SELECT p.*, c.name as category_name 
+                         FROM products p 
+                         LEFT JOIN categories c ON p.category_id = c.id 
+                         WHERE p.sale_price IS NOT NULL 
+                         LIMIT 4");
+    $sale_products = $stmt->fetchAll();
+} catch (PDOException $e) {
+    // Log error silently and continue
+    error_log("Database Error: " . $e->getMessage());
+}
 ?>
 
 <!DOCTYPE html>
@@ -40,11 +55,14 @@ $sale_products = $stmt->fetchAll();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script>
-        // Check for saved dark mode preference
-        if (localStorage.getItem('darkMode') === 'true' || 
-            (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.remove('light');
+        // Initialize dark mode based on localStorage only
+        const darkMode = localStorage.getItem('darkMode') === 'true';
+        if (darkMode) {
             document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
         }
     </script>
     <style>
@@ -66,14 +84,14 @@ $sale_products = $stmt->fetchAll();
         <div class="relative bg-indigo-600 text-white py-32">
             <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600"></div>
             <div class="relative max-w-7xl mx-auto px-4">
-                <h1 class="text-6xl font-bold mb-6 animate-fade-in">Welcome to RudraShop</h1>
+                <h1 class="text-6xl font-bold mb-6 animate-fade-in">Welcome to QuickCart</h1>
                 <p class="text-2xl mb-8 max-w-2xl">Discover amazing products at great prices. Shop the latest trends in fashion, electronics, and more.</p>
                 <div class="flex gap-4">
-                    <a href="/Rudra/ecommerce/products.php" 
+                    <a href="/classproject/products.php" 
                        class="bg-white text-indigo-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition transform hover:scale-105">
                         Shop Now
                     </a>
-                    <a href="/Rudra/ecommerce/categories.php" 
+                    <a href="/classproject/products.php" 
                        class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-indigo-600 transition transform hover:scale-105">
                         Browse Categories
                     </a>
@@ -85,29 +103,36 @@ $sale_products = $stmt->fetchAll();
         <section class="max-w-7xl mx-auto px-4 py-20">
             <div class="flex justify-between items-center mb-12">
                 <h2 class="text-4xl font-bold">Shop by Category</h2>
-                <a href="/Rudra/ecommerce/categories.php" class="text-indigo-600 hover:text-indigo-800 font-semibold">
+                <a href="/classproject/products.php" class="text-indigo-600 hover:text-indigo-800 font-semibold">
                     View All Categories <i class="fas fa-arrow-right ml-2"></i>
                 </a>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <?php foreach ($categories as $category): ?>
-                    <a href="/Rudra/ecommerce/products.php?category=<?php echo $category['id']; ?>" 
-                       class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300">
-                        <img src="<?php echo $category['image_url']; ?>" 
-                             alt="<?php echo $category['name']; ?>" 
-                             class="w-full h-64 object-cover group-hover:scale-110 transition duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end">
-                            <div class="p-6 w-full">
-                                <h3 class="text-white text-2xl font-bold mb-2">
-                                    <?php echo $category['name']; ?>
-                                </h3>
-                                <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <?php echo $category['description']; ?>
-                                </p>
-                            </div>
-                        </div>
-                    </a>
-                <?php endforeach; ?>
+            <!-- Shop by Categories section -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <a href="/classproject/products.php?category=electronics" class="category-card">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                        <i class="fas fa-laptop text-4xl text-indigo-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold">Electronics</h3>
+                    </div>
+                </a>
+                <a href="/classproject/products.php?category=home" class="category-card">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                        <i class="fas fa-home text-4xl text-indigo-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold">Home & Living</h3>
+                    </div>
+                </a>
+                <a href="/classproject/products.php?category=fashion" class="category-card">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                        <i class="fas fa-tshirt text-4xl text-indigo-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold">Fashion</h3>
+                    </div>
+                </a>
+                <a href="/classproject/products.php?category=sports" class="category-card">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                        <i class="fas fa-futbol text-4xl text-indigo-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold">Sports</h3>
+                    </div>
+                </a>
             </div>
         </section>
 
@@ -167,7 +192,7 @@ $sale_products = $stmt->fetchAll();
         <section class="max-w-7xl mx-auto px-4 py-20">
             <div class="flex justify-between items-center mb-12">
                 <h2 class="text-4xl font-bold">Latest Arrivals</h2>
-                <a href="/Rudra/ecommerce/products.php?sort=newest" class="text-indigo-600 hover:text-indigo-800 font-semibold">
+                <a href="/classproject/products.php?sort=newest" class="text-indigo-600 hover:text-indigo-800 font-semibold">
                     View All <i class="fas fa-arrow-right ml-2"></i>
                 </a>
             </div>

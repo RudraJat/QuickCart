@@ -1,5 +1,5 @@
 function addToCart(productId, quantity = 1) {
-    fetch('/Rudra/ecommerce/includes/cart_handler.php', {
+    fetch('/classproject/api/cart_handler.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -9,14 +9,15 @@ function addToCart(productId, quantity = 1) {
     .then(response => response.json())
     .then(data => {
         if (data.status === 'success') {
-            alert(data.message);
-            // Optionally update cart count in navbar
             updateCartCount();
+            // Show success message
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg';
+            toast.textContent = 'Product added to cart';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
         } else {
             alert(data.message);
-            if (data.message.includes('login')) {
-                window.location.href = '/Rudra/ecommerce/auth/login.php';
-            }
         }
     })
     .catch(error => {
@@ -27,7 +28,7 @@ function addToCart(productId, quantity = 1) {
 
 // Function to update cart count in header
 function updateCartCount() {
-    fetch('/Rudra/ecommerce/api/get_cart_count.php')
+    fetch('/classproject/api/get_cart_count.php')
         .then(response => response.json())
         .then(data => {
             const cartCount = document.getElementById('cart-count');
@@ -38,13 +39,13 @@ function updateCartCount() {
 }
 
 // Function to update quantity
-function updateQuantity(cartId, quantity) {
-    fetch('/Rudra/ecommerce/api/update_cart.php', {
+function updateQuantity(productId, change) {
+    fetch('/classproject/api/update_cart.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `cart_id=${cartId}&quantity=${quantity}`
+        body: `product_id=${productId}&change=${change}`
     })
     .then(response => response.json())
     .then(data => {
@@ -55,14 +56,14 @@ function updateQuantity(cartId, quantity) {
 }
 
 // Function to remove item from cart
-function removeFromCart(cartId) {
+function removeFromCart(productId) {
     if (confirm('Are you sure you want to remove this item?')) {
-        fetch('/Rudra/ecommerce/api/remove_from_cart.php', {
+        fetch('/classproject/api/remove_from_cart.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `cart_id=${cartId}`
+            body: `product_id=${productId}`
         })
         .then(response => response.json())
         .then(data => {

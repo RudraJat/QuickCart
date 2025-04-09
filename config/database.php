@@ -1,14 +1,24 @@
 <?php
-$host = 'localhost';
-$dbname = 'ecommerce_db';
-$username = 'root';
-$password = '';
+class Database {
+    private $host = 'localhost:4307';
+    private $dbname = 'ecommerce_db';
+    private $username = 'root';
+    private $password = '';
+    private $pdo;
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // echo "Database connected successfully"; // Add this line temporarily for testing
-} catch(PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+    public function getConnection() {
+        try {
+            if (!$this->pdo) {
+                $this->pdo = new PDO("mysql:host=$this->host;dbname=$this->dbname", 
+                                    $this->username, 
+                                    $this->password);
+                $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            }
+            return $this->pdo;
+        } catch(PDOException $e) {
+            die("Connection failed: " . $e->getMessage());
+        }
+    }
 }
 ?>
