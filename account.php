@@ -18,9 +18,15 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // Fetch user data
-$stmt = $pdo->prepare("SELECT id, email FROM users WHERE id = ?");
+// Update this query to include name
+$stmt = $pdo->prepare("SELECT id, name, email FROM users WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $user = $stmt->fetch();
+
+// Remove this duplicate query since we already have all user data
+// $stmt = $pdo->prepare("SELECT id, email FROM users WHERE id = ?");
+// $stmt->execute([$_SESSION['user_id']]);
+// $user = $stmt->fetch();
 
 // Set default values if fields are missing
 $user['name'] = $user['name'] ?? explode('@', $user['email'])[0];
@@ -123,44 +129,37 @@ ob_start();
 <!-- Edit Profile Modal -->
 <div id="editProfileModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
     <div class="min-h-screen px-4 text-center">
-        <div class="inline-block align-middle bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-            <form id="editProfileForm" class="p-6">
-                <h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Edit Profile</h3>
-                
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            Name
-                        </label>
-                        <input type="text" name="name" value="<?= htmlspecialchars($user['name']) ?>"
-                               class="w-full px-3 py-2 border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            Email
-                        </label>
-                        <input type="email" name="email" value="<?= htmlspecialchars($user['email']) ?>"
-                               class="w-full px-3 py-2 border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            New Password (leave blank to keep current)
-                        </label>
-                        <input type="password" name="password"
-                               class="w-full px-3 py-2 border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    </div>
+        <!-- Modal close button -->
+        <span class="absolute top-4 right-4">
+            <button onclick="closeEditProfile()" class="text-white text-xl">&times;</button>
+        </span>
+        
+        <div class="inline-block align-middle bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full p-6">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Edit Profile</h2>
+            <form id="updateProfileForm" class="space-y-4">
+                <div class="space-y-2">
+                    <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+                    <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
-
-                <div class="mt-6 flex justify-end space-x-3">
-                    <button type="button" onclick="closeEditProfile()"
-                            class="px-4 py-2 border dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
+                <div class="space-y-2">
+                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div class="space-y-2">
+                    <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">New Password (leave blank to keep current)</label>
+                    <input type="password" id="password" name="password" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeEditProfile()" 
+                            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
                         Cancel
                     </button>
-                    <button type="submit"
-                            class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
-                        Save Changes
+                    <button type="submit" 
+                            class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+                        Update Profile
                     </button>
                 </div>
             </form>
@@ -177,21 +176,27 @@ function closeEditProfile() {
     document.getElementById('editProfileModal').classList.add('hidden');
 }
 
-document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+// Fix the form ID and event listener
+document.getElementById('updateProfileForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const formData = new FormData(this);
     
-    fetch('/Rudra/ecommerce/api/update_profile.php', {
+    fetch('/classproject/api/update_profile.php', {  // Fixed URL path
         method: 'POST',
         body: formData
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            location.reload();
+            alert('Profile updated successfully!');
+            window.location.reload();
         } else {
             alert(data.message || 'An error occurred');
         }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
     });
 });
 </script>

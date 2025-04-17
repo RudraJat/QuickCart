@@ -9,31 +9,19 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Validate and sanitize input
-$name = isset($_POST['name']) ? trim($_POST['name']) : '';
-$email = isset($_POST['email']) ? trim($_POST['email']) : '';
-$password = isset($_POST['password']) ? trim($_POST['password']) : '';
+$database = new Database();
+$pdo = $database->getConnection();
 
-// Validate required fields
-if (empty($name)) {
-    echo json_encode(['success' => false, 'message' => 'Name is required']);
-    exit();
-}
-
-if (empty($email)) {
-    echo json_encode(['success' => false, 'message' => 'Email is required']);
-    exit();
-}
-
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    echo json_encode(['success' => false, 'message' => 'Invalid email format']);
-    exit();
-}
+// Get and sanitize input
+$name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+$password = $_POST['password'] ?? '';
 
 try {
     // Check if email exists for other users
     $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
     $stmt->execute([$email, $_SESSION['user_id']]);
+    
     if ($stmt->fetch()) {
         echo json_encode(['success' => false, 'message' => 'Email already in use']);
         exit();
@@ -41,14 +29,21 @@ try {
 
     // Update user data
     if (!empty($password)) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?");
-        $stmt->execute([$name, $email, password_hash($password, PASSWORD_DEFAULT), $_SESSION['user_id']]);
+        $success = $stmt->execute([$name, $email, $hashedPassword, $_SESSION['user_id']]);
     } else {
         $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?");
-        $stmt->execute([$name, $email, $_SESSION['user_id']]);
+        $success = $stmt->execute([$name, $email, $_SESSION['user_id']]);
     }
 
-    echo json_encode(['success' => true, 'message' => 'Profile updated successfully']);
+    if ($success) {
+        echo json_encode(['success' => true, 'message' => 'Profile updated successfully']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Failed to update profile']);
+    }
 } catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => 'Database error']);
+    error_log($e->getMessage());
+    echo json_encode(['success' => false, 'message' => 'Database error occurred']);
 }
+?>
