@@ -205,3 +205,12 @@ document.getElementById('updateProfileForm').addEventListener('submit', function
 $content = ob_get_clean();
 include 'templates/layout.php';
 ?>
+
+<div class="order-info">
+    <!-- existing order details -->
+    <div class="mt-2">
+        <a href="/classproject/returns.php" class="text-indigo-600 hover:text-indigo-800">
+            View Return Policy
+        </a>
+    </div>
+</div>

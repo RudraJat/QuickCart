@@ -42,6 +42,16 @@
                 </div>
             </div>
 
+            <div class="footer-links grid grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-gray-100">Customer Service</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/classproject/returns.php" class="text-gray-300 hover:text-white transition-colors">Returns & Refunds</a></li>
+                        <li><a href="/classproject/pages/faq.php" class="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
+                        <!-- other links -->
+                    </ul>
+                </div>
+            </div>
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
                 <p>&copy; <?php echo date('Y'); ?> QuickCart. All rights reserved.</p>
             </div>

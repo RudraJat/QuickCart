@@ -116,6 +116,12 @@ $orderItems = $stmt->fetchAll();
                     Total: $<?= number_format($order['total_amount'], 2) ?>
                 </div>
             </div>
+            <div class="order-actions mt-4">
+                <a href="/classproject/returns.php" 
+                   class="inline-block bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300">
+                    Return Policy
+                </a>
+            </div>
         </div>
     </main>
 
