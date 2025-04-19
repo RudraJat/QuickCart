@@ -2,7 +2,7 @@
 </main>
     <footer class="bg-gray-800 text-white shadow-lg mt-auto">
         <div class="max-w-7xl mx-auto px-4 py-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="grid grid-cols-5 gap-8">
                 <!-- About Us -->
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-white">About Us</h3>
@@ -13,10 +13,10 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-white">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="/classproject/index.php" class="text-gray-300 hover:text-white">Home</a></li>
-                        <li><a href="/classproject/products.php" class="text-gray-300 hover:text-white">Products</a></li>
-                        <li><a href="/classproject/cart.php" class="text-gray-300 hover:text-white">Cart</a></li>
-                        <li><a href="/classproject/account.php" class="text-gray-300 hover:text-white">Account</a></li>
+                        <li><a href="/classproject/index.php" class="text-gray-300 hover:text-indigo-600 transition-colors">Home</a></li>
+                        <li><a href="/classproject/products.php" class="text-gray-300 hover:text-indigo-600 transition-colors">Products</a></li>
+                        <li><a href="/classproject/cart.php" class="text-gray-300 hover:text-indigo-600 transition-colors">Cart</a></li>
+                        <li><a href="/classproject/account.php" class="text-gray-300 hover:text-indigo-600 transition-colors">Account</a></li>
                     </ul>
                 </div>
 
@@ -24,10 +24,10 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-white">Categories</h3>
                     <ul class="space-y-2">
-                        <li><a href="/classproject/products.php?category=electronics" class="text-gray-300 hover:text-white">Electronics</a></li>
-                        <li><a href="/classproject/products.php?category=fashion" class="text-gray-300 hover:text-white">Fashion</a></li>
-                        <li><a href="/classproject/products.php?category=home" class="text-gray-300 hover:text-white">Home & Living</a></li>
-                        <li><a href="/classproject/products.php?category=sports" class="text-gray-300 hover:text-white">Sports</a></li>
+                        <li><a href="/classproject/products.php?category=electronics" class="text-gray-300 hover:text-indigo-600 transition-colors">Electronics</a></li>
+                        <li><a href="/classproject/products.php?category=fashion" class="text-gray-300 hover:text-indigo-600 transition-colors">Fashion</a></li>
+                        <li><a href="/classproject/products.php?category=home" class="text-gray-300 hover:text-indigo-600 transition-colors">Home & Living</a></li>
+                        <li><a href="/classproject/products.php?category=sports" class="text-gray-300 hover:text-indigo-600 transition-colors">Sports</a></li>
                     </ul>
                 </div>
 
@@ -40,18 +40,17 @@
                         <li><i class="fas fa-map-marker-alt mr-2"></i> 123 Shopping Street, NY 10001</li>
                     </ul>
                 </div>
-            </div>
 
-            <div class="footer-links grid grid-cols-4 gap-8">
+                <!-- Customer Service -->
                 <div>
-                    <h3 class="text-lg font-semibold mb-4 text-gray-100">Customer Service</h3>
+                    <h3 class="text-lg font-semibold mb-4 text-white">Customer Service</h3>
                     <ul class="space-y-2">
-                        <li><a href="/classproject/returns.php" class="text-gray-300 hover:text-white transition-colors">Returns & Refunds</a></li>
-                        <li><a href="/classproject/pages/faq.php" class="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
-                        <!-- other links -->
+                        <li><a href="/classproject/returns.php" class="text-gray-300 hover:text-indigo-600 transition-colors">Returns & Refunds</a></li>
+                        <li><a href="/classproject/pages/faq.php" class="text-gray-300 hover:text-indigo-600 transition-colors">FAQ</a></li>
                     </ul>
                 </div>
             </div>
+
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
                 <p>&copy; <?php echo date('Y'); ?> QuickCart. All rights reserved.</p>
             </div>
