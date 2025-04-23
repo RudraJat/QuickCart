@@ -1,20 +1,17 @@
-<nav class="bg-white dark:bg-gray-800 shadow-lg fixed w-full top-0 z-50">
+<nav class="bg-white dark:bg-gray-800 fixed w-full z-50 shadow-lg">
     <div class="max-w-7xl mx-auto px-4">
-        <div class="flex justify-between items-center h-16">
+        <div class="flex justify-between h-16">
             <!-- Logo -->
-            <div class="flex items-center">
-                <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <i class="fas fa-bars text-gray-600 dark:text-gray-200 text-xl"></i>
-                </button>
-                <a href="/classproject/index.php" class="text-2xl font-bold text-indigo-600 dark:text-white hover:text-indigo-800 dark:hover:text-indigo-400 transition duration-300 ml-2 md:ml-0">
-                    QuickCart
-                </a>
+            <div class="flex">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="/classproject/index.php" class="text-2xl font-bold text-indigo-600">QuickCart</a>
+                </div>
             </div>
-
-            <!-- Navigation Links - Desktop -->
+            <!-- Right side navigation -->
             <div class="hidden md:flex items-center space-x-6">
                 <a href="/classproject/index.php" class="nav-link dark:text-gray-200">Home</a>
                 <a href="/classproject/products.php" class="nav-link dark:text-gray-200">Products</a>
+                <a href="/classproject/pages/about.php" class="nav-link dark:text-gray-200">About Us</a>
                 <a href="/classproject/cart.php" class="nav-link dark:text-gray-200 flex items-center">
                     <span>Cart</span>
                     <span id="cart-count" class="ml-2 bg-indigo-600 text-white text-xs px-2 py-1 rounded-full">0</span>
@@ -24,8 +21,6 @@
                 <button id="darkModeToggle" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
                     <i id="darkModeIcon" class="fas fa-moon text-gray-600 dark:text-gray-200 text-xl"></i>
                 </button>
-
-                <!-- Remove the duplicate theme toggle button -->
 
                 <!-- Auth Links -->
                 <?php if (isset($_SESSION['user_id'])): ?>

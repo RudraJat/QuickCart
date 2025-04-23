@@ -248,8 +248,10 @@ try {
             <div class="max-w-7xl mx-auto px-4 text-center">
                 <h2 class="text-4xl font-bold text-white mb-4">Stay Updated</h2>
                 <p class="text-xl text-white/80 mb-8">Subscribe to our newsletter for the latest updates and exclusive offers.</p>
-                <form class="max-w-xl mx-auto flex gap-4">
-                    <input type="email" placeholder="Enter your email" 
+                <form id="subscribeForm" class="max-w-xl mx-auto flex gap-4">
+                    <input type="email" 
+                           id="subscribeEmail"
+                           placeholder="Enter your email" 
                            class="flex-1 px-6 py-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-white">
                     <button type="submit" 
                             class="bg-white text-indigo-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition">
@@ -258,11 +260,37 @@ try {
                 </form>
             </div>
         </section>
+
+        <!-- Place this before the closing </body> tag -->
+        <script>
+        document.getElementById('subscribeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('subscribeEmail').value;
+            const formData = new FormData();
+            formData.append('email', email);
+        
+            fetch('/classproject/api/subscribe.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.success) {
+                    document.getElementById('subscribeEmail').value = '';
+                }
+            })
+            .catch(error => {
+                alert('Something went wrong. Please try again later.');
+            });
+        });
+        </script>
     </main>
 
     <?php include 'templates/footer.php'; ?>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="/Rudra/ecommerce/assets/js/cart.js"></script>
-    <script src="/Rudra/ecommerce/assets/js/darkMode.js"></script>
+    <script src="/classproject/assets/js/cart.js"></script>
+    <script src="/classproject/assets/js/darkMode.js"></script>
 </body>
 </html>

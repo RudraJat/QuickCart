@@ -7,6 +7,7 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-white">About Us</h3>
                     <p class="text-gray-300">Your trusted online shopping destination.</p>
+                    <a href="/classproject/pages/about.php" class="text-gray-300 hover:text-indigo-600 transition-colors">Learn More →</a>
                 </div>
 
                 <!-- Quick Links -->
@@ -35,8 +36,8 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-white">Contact Info</h3>
                     <ul class="space-y-2 text-gray-300">
-                        <li><i class="fas fa-phone mr-2"></i> (123) 456-7890</li>
-                        <li><i class="fas fa-envelope mr-2"></i> support@quickcart.com</li>
+                        <li><i class="fas fa-phone mr-2"></i> <a href="tel:+918103000577" class="hover:text-indigo-600 transition-colors">+91 8103000577</a></li>
+                        <li><i class="fas fa-envelope mr-1"></i> <a href="mailto:rps9827256181@gmail.com" class="hover:text-indigo-600 transition-colors">rps9827256181@gmail.com</a></li>
                         <li><i class="fas fa-map-marker-alt mr-2"></i> 123 Shopping Street, NY 10001</li>
                     </ul>
                 </div>

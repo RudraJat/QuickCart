@@ -79,7 +79,7 @@ $pageTitle = 'Register - QuickCart';
                     <span class="block sm:inline"><?= htmlspecialchars($error) ?></span>
                 </div>
             <?php endif; ?>
-            <form class="mt-8 space-y-6" method="POST">
+            <form id="registerForm" class="space-y-6" method="POST" action="">
                 <div class="rounded-md shadow-sm -space-y-px">
                     <div>
                         <label for="name" class="sr-only">Name</label>
@@ -97,7 +97,9 @@ $pageTitle = 'Register - QuickCart';
                         <label for="password" class="sr-only">Password</label>
                         <input id="password" name="password" type="password" required 
                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" 
-                               placeholder="Password">
+                               placeholder="Password (minimum 8 characters)"
+                               minlength="8">
+                        <p id="passwordError" class="mt-1 text-sm text-red-600 hidden">Password must be at least 8 characters long</p>
                     </div>
                     <div>
                         <label for="confirm_password" class="sr-only">Confirm Password</label>
@@ -127,3 +129,17 @@ $pageTitle = 'Register - QuickCart';
     <?php include 'templates/footer.php'; ?>
 </body>
 </html>
+
+<script>
+document.getElementById('registerForm').addEventListener('submit', function(e) {
+    const password = document.getElementById('password').value;
+    const passwordError = document.getElementById('passwordError');
+
+    if (password.length < 8) {
+        e.preventDefault();
+        passwordError.classList.remove('hidden');
+    } else {
+        passwordError.classList.add('hidden');
+    }
+});
+</script>
