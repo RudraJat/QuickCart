@@ -29,18 +29,14 @@
     </script>
     <?php if (isset($additionalStyles)) echo $additionalStyles; ?>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
-    <?php include 'header.php'; ?>
+<body class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+    <?php include __DIR__ . '/header.php'; ?>
 
-    <main class="container mx-auto px-4 py-8 mt-16 sm:mt-20">
-        <div class="<?= $containerClass ?? 'max-w-7xl mx-auto' ?>">
-            <?= $content ?>
-        </div>
+    <main class="flex-1 <?= $containerClass ?? '' ?>">
+        <?= $content ?>
     </main>
 
-    <?php include 'footer.php'; ?>
-    
-    <script src="/classproject/assets/js/darkMode.js"></script>
-    <?php if (isset($additionalScripts)) echo $additionalScripts; ?>
+    <?php include __DIR__ . '/footer.php'; ?>
+    <?= $additionalScripts ?? '' ?>
 </body>
 </html>

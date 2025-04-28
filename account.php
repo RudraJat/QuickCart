@@ -56,7 +56,7 @@ $additionalScripts = '
 ob_start();
 ?>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="grid mt-8 grid-cols-1 md:grid-cols-3 gap-6">
     <!-- Profile Section -->
     <div class="md:col-span-1">
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
@@ -122,6 +122,12 @@ ob_start();
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
+            <!-- Move the return policy link here, above the footer -->
+            <div class="order-info mt-6">
+                <a href="/classproject/returns.php" class="text-indigo-600 hover:text-indigo-800">
+                    View Return Policy
+                </a>
+            </div>
         </div>
     </div>
 </div>
@@ -205,12 +211,3 @@ document.getElementById('updateProfileForm').addEventListener('submit', function
 $content = ob_get_clean();
 include 'templates/layout.php';
 ?>
-
-<div class="order-info">
-    <!-- existing order details -->
-    <div class="mt-2">
-        <a href="/classproject/returns.php" class="text-indigo-600 hover:text-indigo-800">
-            View Return Policy
-        </a>
-    </div>
-</div>

@@ -12,3 +12,14 @@ include 'templates/layout.php';
         </div>
     </div>
 </div>
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Move all your addEventListener code inside this function
+    var myElement = document.getElementById('yourElementId');
+    if (myElement) {
+        myElement.addEventListener('click', function() {
+            // ... your code ...
+        });
+    }
+    // ... any other DOM-dependent code ...
+});
