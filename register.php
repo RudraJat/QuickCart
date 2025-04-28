@@ -95,10 +95,17 @@ $pageTitle = 'Register - QuickCart';
                     </div>
                     <div>
                         <label for="password" class="sr-only">Password</label>
-                        <input id="password" name="password" type="password" required 
-                               class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" 
-                               placeholder="Password (minimum 8 characters)"
-                               minlength="8">
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            required
+                            placeholder="Password"
+                            minlength="8"
+                            pattern="^(?!.*(?:12345678|abcdefgh)).*(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$"
+                            title="Password must be at least 8 characters, include a letter, a number, a special character, and not be a simple sequence like 12345678 or abcdefgh."
+                            class="form-input w-full px-3 py-2 rounded-none border border-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
                         <p id="passwordError" class="mt-1 text-sm text-red-600 hidden">Password must be at least 8 characters long</p>
                     </div>
                     <div>
