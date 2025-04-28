@@ -58,10 +58,10 @@ if (!empty($_SESSION['cart'])) {
         }
     </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 flex flex-col min-h-screen">
     <?php include 'templates/header.php'; ?>
     
-    <main class="max-w-7xl mx-auto px-4 py-8">
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-1">
         <h1 class="text-3xl font-bold mb-8">Shopping Cart</h1>
         
         <?php if (empty($cart_items)): ?>

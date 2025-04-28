@@ -84,7 +84,8 @@
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <a href="/classproject/account.php" class="nav-link dark:text-gray-200">Account</a>
                     <a href="/classproject/logout.php" 
-                       class="bg-indigo-700 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-all duration-300 font-medium flex items-center space-x-2">
+                       class="bg-indigo-700 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-all duration-300 font-medium flex items-center space-x-2"
+                       onclick="return confirm('Are you sure you want to logout?');">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </a>
