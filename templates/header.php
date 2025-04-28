@@ -160,6 +160,8 @@ function updateCartCount(count) {
 }
 </script>
 
-    <!-- Remove this line -->
-        <script src="/classproject/assets/js/darkMode.js"></script>
-        <script src="/classproject/assets/js/cart.js"></script>
+    <!-- Place these scripts just before the closing body tag -->
+    <script src="/classproject/assets/js/darkmode.js"></script>
+    <script src="/classproject/assets/js/cart.js"></script>
+</body>
+</html>
