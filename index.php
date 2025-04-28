@@ -99,40 +99,36 @@ try {
             </div>
         </div>
 
-        <!-- Categories Section with Grid -->
-        <section class="max-w-7xl mx-auto px-4 py-20">
-            <div class="flex justify-between items-center mb-12">
-                <h2 class="text-4xl font-bold">Shop by Category</h2>
-                <a href="/classproject/products.php" class="text-indigo-600 hover:text-indigo-800 font-semibold">
-                    View All Categories <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-            <!-- Shop by Categories section -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <a href="/classproject/products.php?category=electronics" class="category-card">
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
-                        <i class="fas fa-laptop text-4xl text-indigo-600 mb-4"></i>
-                        <h3 class="text-xl font-semibold">Electronics</h3>
-                    </div>
-                </a>
-                <a href="/classproject/products.php?category=home" class="category-card">
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
-                        <i class="fas fa-home text-4xl text-indigo-600 mb-4"></i>
-                        <h3 class="text-xl font-semibold">Home & Living</h3>
-                    </div>
-                </a>
-                <a href="/classproject/products.php?category=fashion" class="category-card">
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
-                        <i class="fas fa-tshirt text-4xl text-indigo-600 mb-4"></i>
-                        <h3 class="text-xl font-semibold">Fashion</h3>
-                    </div>
-                </a>
-                <a href="/classproject/products.php?category=sports" class="category-card">
-                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
-                        <i class="fas fa-futbol text-4xl text-indigo-600 mb-4"></i>
-                        <h3 class="text-xl font-semibold">Sports</h3>
-                    </div>
-                </a>
+        <!-- Categories Section -->
+        <section class="py-20">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-4xl font-bold mb-12 text-center dark:text-white">Shop by Category</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <a href="/classproject/products.php?category=electronics" class="transform hover:scale-105 transition duration-300">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                            <i class="fas fa-laptop text-4xl text-indigo-600 dark:text-indigo-400 mb-4"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">Electronics</h3>
+                        </div>
+                    </a>
+                    <a href="/classproject/products.php?category=fashion" class="transform hover:scale-105 transition duration-300">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                            <i class="fas fa-tshirt text-4xl text-indigo-600 dark:text-indigo-400 mb-4"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">Fashion</h3>
+                        </div>
+                    </a>
+                    <a href="/classproject/products.php?category=home" class="transform hover:scale-105 transition duration-300">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                            <i class="fas fa-home text-4xl text-indigo-600 dark:text-indigo-400 mb-4"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">Home & Living</h3>
+                        </div>
+                    </a>
+                    <a href="/classproject/products.php?category=sports" class="transform hover:scale-105 transition duration-300">
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 text-center hover:shadow-lg transition duration-300">
+                            <i class="fas fa-futbol text-4xl text-indigo-600 dark:text-indigo-400 mb-4"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">Sports</h3>
+                        </div>
+                    </a>
+                </div>
             </div>
         </section>
 

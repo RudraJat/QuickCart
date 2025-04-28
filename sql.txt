@@ -1,0 +1,2 @@
+INSERT INTO `products` (`id`, `name`, `slug`, `description`, `price`, `sale_price`, `category_id`, `stock`, `image_url`, `is_featured`, `created_at`, `category_name`, `category`) 
+VALUES (NULL, 'bottle', 'bottle-water-01', 'water bottle', '30', '23', '3', '30', NULL, '0', current_timestamp(), 'Home & Living', 'Home & Living');

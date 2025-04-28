@@ -57,5 +57,15 @@
             </div>
         </div>
     </footer>
+
+    <!-- Core Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    
+    <!-- Theme Script (Load this first) -->
+    <script src="/classproject/assets/js/darkMode.js"></script>
+    
+    <!-- Other Custom Scripts -->
+    <script src="/classproject/assets/js/cart.js"></script>
 </body>
 </html>

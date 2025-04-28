@@ -43,14 +43,7 @@ $product = $stmt->fetch();
                         Add to Cart
                     </button>
                 </div>
-                <div class="product-info">
-                    <h1><?php echo $product['name']; ?></h1>
-                    <p class="price">$<?php echo number_format($product['price'], 2); ?></p>
-                    <button onclick="addToCart(<?php echo $product['id']; ?>)" 
-                            class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
-                        Add to Cart
-                    </button>
-                </div>
+                <!-- Remove duplicate product info and add to cart button -->
             </div>
         </div>
     </div>

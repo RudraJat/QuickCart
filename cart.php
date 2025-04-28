@@ -77,25 +77,27 @@ if (!empty($_SESSION['cart'])) {
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="md:col-span-2">
                     <?php foreach ($cart_items as $item): ?>
-                        <div class="bg-white rounded-lg shadow-md p-6 mb-4 flex items-center">
+                        <div class="bg-white rounded-lg shadow-md p-6 mb-4 flex items-center" data-product-id="<?php echo $item['id']; ?>">
                             <img src="<?php echo htmlspecialchars($item['image_url']); ?>" 
                                  alt="<?php echo htmlspecialchars($item['name']); ?>"
                                  class="w-24 h-24 object-cover rounded">
                             <div class="ml-6 flex-grow">
                                 <h3 class="text-xl font-semibold"><?php echo htmlspecialchars($item['name']); ?></h3>
                                 <p class="text-gray-600">$<?php echo number_format($item['price'], 2); ?></p>
-                                <div class="mt-2 flex items-center">
-                                    <button onclick="updateCart(<?php echo $item['id']; ?>, 'decrease')" 
-                                            class="bg-gray-200 px-3 py-1 rounded">-</button>
-                                    <span class="mx-4"><?php echo $_SESSION['cart'][$item['id']]; ?></span>
-                                    <button onclick="updateCart(<?php echo $item['id']; ?>, 'increase')" 
-                                            class="bg-gray-200 px-3 py-1 rounded">+</button>
+                                <div class="mt-2 flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <button onclick="updateCart(<?php echo $item['id']; ?>, 'decrease')" 
+                                                class="bg-gray-200 px-3 py-1 rounded">-</button>
+                                        <span class="mx-4"><?php echo $_SESSION['cart'][$item['id']]; ?></span>
+                                        <button onclick="updateCart(<?php echo $item['id']; ?>, 'increase')" 
+                                                class="bg-gray-200 px-3 py-1 rounded">+</button>
+                                    </div>
+                                    <button onclick="removeFromCart(<?php echo $item['id']; ?>)" 
+                                            class="text-red-600 hover:text-red-800 ml-4">
+                                        <i class="fas fa-trash"></i> Remove
+                                    </button>
                                 </div>
                             </div>
-                            <button onclick="removeFromCart(<?php echo $item['id']; ?>)" 
-                                    class="text-red-600 hover:text-red-800">
-                                <i class="fas fa-trash"></i>
-                            </button>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -149,7 +151,6 @@ if (!empty($_SESSION['cart'])) {
     </main>
 
     <?php include 'templates/footer.php'; ?>
-    
     <script src="/classproject/assets/js/cart.js"></script>
 </body>
 </html>
