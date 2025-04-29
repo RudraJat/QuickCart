@@ -74,11 +74,12 @@
                     </span>
                 </a>
 
-                <!-- Dark mode toggle button -->
-                <!-- Add this in your header's navigation area -->
+                <!-- Dark mode toggle button: Only show on home page -->
+                <?php if (basename($_SERVER['PHP_SELF']) === 'index.php'): ?>
                 <button id="darkModeToggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                     <i id="darkModeIcon" class="fas fa-moon"></i>
                 </button>
+                <?php endif; ?>
 
                 <!-- Auth Links -->
                 <?php if (isset($_SESSION['user_id'])): ?>

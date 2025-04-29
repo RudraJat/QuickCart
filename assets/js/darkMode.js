@@ -1,33 +1,28 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    const darkModeIcon = document.getElementById('darkModeIcon');
+// Handles dark mode toggling and persistence
 
-    // Set initial mode based on localStorage
+// Toggle dark mode and save preference
+function toggleDarkMode() {
+    const html = document.documentElement;
+    const isDark = html.classList.toggle('dark');
+    html.classList.toggle('light', !isDark);
+    localStorage.setItem('darkMode', isDark);
+    updateDarkModeIcon(isDark);
+}
+
+// Update the dark mode icon (moon/sun)
+function updateDarkModeIcon(isDark) {
+    const icon = document.getElementById('darkModeIcon');
+    if (icon) {
+        icon.className = isDark
+            ? 'fas fa-sun text-gray-200 text-xl'
+            : 'fas fa-moon text-gray-600 text-xl';
+    }
+}
+
+// Initialize dark mode on page load
+document.addEventListener('DOMContentLoaded', function() {
     const darkMode = localStorage.getItem('darkMode') === 'true';
-    setTheme(darkMode);
-
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('click', function () {
-            const isDark = document.documentElement.classList.toggle('dark');
-            document.documentElement.classList.toggle('light', !isDark);
-            localStorage.setItem('darkMode', isDark);
-
-            // Optionally change icon
-            if (darkModeIcon) {
-                darkModeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-            }
-        });
-    }
-
-    function setTheme(isDark) {
-        if (isDark) {
-            document.documentElement.classList.add('dark');
-            document.documentElement.classList.remove('light');
-            if (darkModeIcon) darkModeIcon.className = 'fas fa-sun';
-        } else {
-            document.documentElement.classList.add('light');
-            document.documentElement.classList.remove('dark');
-            if (darkModeIcon) darkModeIcon.className = 'fas fa-moon';
-        }
-    }
+    document.documentElement.classList.toggle('dark', darkMode);
+    document.documentElement.classList.toggle('light', !darkMode);
+    updateDarkModeIcon(darkMode);
 });

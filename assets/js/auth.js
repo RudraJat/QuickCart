@@ -1,27 +1,27 @@
-document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
+// Handles authentication-related JS (login, register, logout)
+
+// Handle login form submission
+document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const formData = new FormData(this);
 
-    try {
-        const response = await fetch('../includes/login.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        });
-
-        const data = await response.json();
-        
+    // Send AJAX request to login
+    fetch('/classproject/api/login.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
         if (data.success) {
-            window.location.href = '../index.html';
+            window.location.href = '/classproject/account.php';
         } else {
-            alert(data.message);
+            alert(data.message || 'Login failed');
         }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred during login');
-    }
+    });
+});
+
+// Handle logout (if using AJAX)
+document.getElementById('logoutButton')?.addEventListener('click', function() {
+    fetch('/classproject/api/logout.php', { method: 'POST' })
+    .then(() => window.location.href = '/classproject/login.php');
 });

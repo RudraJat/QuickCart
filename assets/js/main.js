@@ -145,3 +145,19 @@ function validateForm(formId) {
 
     return isValid;
 }
+
+// Main site-wide JS: handles navigation, mobile menu, and other global features
+
+// Toggle mobile menu visibility
+document.getElementById('mobile-menu-button').addEventListener('click', function() {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(event) {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+        mobileMenu.classList.add('hidden');
+    }
+});

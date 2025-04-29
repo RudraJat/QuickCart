@@ -43,3 +43,17 @@ function handleFormSubmit(formId, endpoint) {
         }
     });
 }
+
+// Utility functions for making API requests
+
+// Generic function to make a POST request and get JSON response
+function apiPost(url, data) {
+    return fetch(url, {
+        method: 'POST',
+        body: data instanceof FormData ? data : JSON.stringify(data),
+        headers: data instanceof FormData ? {} : { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json());
+}
+
+// Example usage: apiPost('/classproject/api/some_endpoint.php', { key: 'value' }).then(...)
