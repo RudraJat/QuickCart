@@ -76,8 +76,8 @@
 
                 <!-- Dark mode toggle button: Only show on home page -->
                 <?php if (basename($_SERVER['PHP_SELF']) === 'index.php'): ?>
-                <button id="darkModeToggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                    <i id="darkModeIcon" class="fas fa-moon"></i>
+                <button id="themeToggleBtn" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <i id="themeIcon" class="fas fa-moon"></i>
                 </button>
                 <?php endif; ?>
 
@@ -165,5 +165,6 @@ function updateCartCount(count) {
     <!-- Place these scripts just before the closing body tag -->
     <script src="/classproject/assets/js/darkmode.js"></script>
     <script src="/classproject/assets/js/cart.js"></script>
+    <!-- Removing the duplicate theme toggle button -->
 </body>
 </html>

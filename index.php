@@ -238,11 +238,15 @@ try {
                 <?php endforeach; ?>
             </div>
         </section>
-        <!-- More sections can be added here... -->
-    </main>
-    <?php include 'templates/footer.php'; ?>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="/classproject/assets/js/cart.js"></script>
-    <script src="/classproject/assets/js/darkMode.js"></script>
+        <!-- REMOVE any duplicate theme toggle button like this from your main page -->
+        <!--
+        <button id="themeToggleBtn" onclick="toggleTheme()">
+            <i id="themeIcon" class="fas fa-moon text-gray-600 text-xl"></i>
+        </button>
+        -->
+        <!-- <--Make sure to include the theme.js file before the closing </body> tag -->
+        <script src="/classproject/assets/js/theme.js"></script>
+        <script src="/classproject/assets/js/cart.js"></script>
+        <script src="/classproject/assets/js/darkMode.js"></script>
 </body>
 </html>
